@@ -43,6 +43,7 @@ class Fact(PolymorphicVerticalProperty, DeclarativeBase):
     key = Column(Unicode(64), primary_key=True)
     type_ = Column(Unicode(16), default=None)
     int_value = Column(Integer, default=None)
+    float_value = Column(Float, default=None)
     char_value = Column(UnicodeText, default=None)
     boolean_value = Column(Boolean, default=None)
     datetime_value = Column(DateTime, default=None)
@@ -54,6 +55,7 @@ class Fact(PolymorphicVerticalProperty, DeclarativeBase):
 
     type_map = {
         int: (u'integer', 'int_value'),
+        float: (u'float', 'float_value'),
         unicode: (u'char', 'char_value'),
         bool: (u'boolean', 'boolean_value'),
         datetime: (u'datetime', 'datetime_value'),
