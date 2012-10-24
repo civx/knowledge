@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
         name="knowledge",
-        version="0.1",
+        version="0.2",
         author="Luke Macken",
         author_email="lmacken@redhat.com",
         install_requires=['sqlalchemy'],
