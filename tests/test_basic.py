@@ -10,7 +10,7 @@ filename = '/tmp/testing-knowledge-db.db'
 class TestBasics(unittest.TestCase):
     def setUp(self):
         uri = 'sqlite:///{0}'.format(filename)
-        setup_knowledge(uri)
+        self.session = setup_knowledge(uri)
 
     def tearDown(self):
         os.remove(filename)

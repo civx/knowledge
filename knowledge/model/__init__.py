@@ -67,6 +67,7 @@ def setup_knowledge(sqlalchemy_uri):
 
     init_model(session, engine)
     metadata.create_all(engine)
+    return session
 
 
 # Import your model modules here.
