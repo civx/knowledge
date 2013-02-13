@@ -56,5 +56,14 @@ def init_model(engine):
 
     #mapper(Reflected, t_reflected)
 
+
+def setup_knowledge(sqlalchemy_uri):
+    """Call me to connect to the DB and set up SQLAlchemy accordingly"""
+    from sqlalchemy import create_engine
+    engine = create_engine(sqlalchemy_uri)
+    init_model(engine)
+    metadata.create_all(engine)
+
+
 # Import your model modules here.
 from model import *
