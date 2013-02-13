@@ -16,7 +16,7 @@ class TestBasics(unittest.TestCase):
     def test_associating_facts_unicode_by_key(self):
         apple = Entity('apple')
         apple['foo'] = u'bar'
-        eq_(apple['foo'], u'bar')
+        eq_(apple['foo'], 'bar')
 
     def test_associating_facts_unicode_by_attr(self):
         apple = Entity('apple')
