@@ -31,7 +31,8 @@ from sqlalchemy import *
 from sqlalchemy.orm import relation, comparable_property
 from vertical import PolymorphicVerticalProperty, VerticalPropertyDictMixin
 
-from knowledge.model import metadata, DeclarativeBase, DBSession
+from knowledge.model import clean_start
+DBSession, DeclarativeBase, metadata = clean_start()
 
 
 class Fact(PolymorphicVerticalProperty, DeclarativeBase):
