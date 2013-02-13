@@ -94,6 +94,12 @@ class VerticalPropertyDictMixin(object):
     def __getitem__(self, key):
         return self.__map[key].value
 
+    def __getattr__(self, key):
+        return self.__map[key].value
+
+    def get(self, key, default=None):
+        return self.__map.get(key, default)
+
     def __setitem__(self, key, value):
         property = self.__map.get(key, None)
         if property is None:
@@ -102,6 +108,9 @@ class VerticalPropertyDictMixin(object):
             property.value = value
 
     def __delitem__(self, key):
+        del self.__map[key]
+
+    def __delattr__(self, key):
         del self.__map[key]
 
     def __contains__(self, key):
