@@ -98,7 +98,10 @@ class VerticalPropertyDictMixin(object):
         return self.__map[key].value
 
     def get(self, key, default=None):
-        return self.__map.get(key, default)
+        value = self.__map.get(key, default)
+        if hasattr(value, 'value'):
+             return value.value
+        return value
 
     def __setitem__(self, key, value):
         property = self.__map.get(key, None)
