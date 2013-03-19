@@ -2,33 +2,37 @@ import unittest
 from nose.tools import eq_
 import os
 
-from knowledge.model import setup_knowledge, Entity
+from sqlalchemy import create_engine
 
-# TODO -- make this an in-memory database, not in /tmp
-filename = '/tmp/testing-knowledge-db.db'
+from knowledge.model import init_model, metadata, DBSession, Entity
+
 
 class TestBasics(unittest.TestCase):
     def setUp(self):
-        uri = 'sqlite:///{0}'.format(filename)
-        self.session = setup_knowledge(uri)
+        engine = create_engine('sqlite:///:memory:')
+        init_model(engine)
+        metadata.create_all(engine)
 
     def tearDown(self):
-        os.remove(filename)
+        DBSession.remove()
 
     def test_basic_one(self):
         """ Basic usage. """
         apple = Entity('apple')
+        DBSession.add(apple)
+        DBSession.commit()
         eq_(apple.name, 'apple')
 
     def test_associating_facts_unicode_by_key(self):
         apple = Entity('apple')
+        DBSession.add(apple)
+        DBSession.commit()
         apple['foo'] = u'bar'
         eq_(apple['foo'], 'bar')
 
     def test_associating_facts_unicode_by_attr(self):
         apple = Entity('apple')
+        DBSession.add(apple)
+        DBSession.commit()
         apple['foo'] = u'bar'
         eq_(apple.foo, 'bar')
-
-if __name__ == '__main__':
-    unittest.main()
