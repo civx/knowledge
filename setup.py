@@ -5,7 +5,7 @@ import logging
 
 setup(
         name="knowledge",
-        version="0.2",
+        version="0.3",
         author="Luke Macken",
         author_email="lmacken@redhat.com",
         install_requires=['sqlalchemy'],
