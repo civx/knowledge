@@ -36,3 +36,24 @@ class TestBasics(unittest.TestCase):
         DBSession.commit()
         apple['foo'] = u'bar'
         eq_(apple.foo, 'bar')
+
+    def test_associating_facts_unicode_by_get(self):
+        apple = Entity('apple')
+        DBSession.add(apple)
+        DBSession.commit()
+        apple['foo'] = u'bar'
+        eq_(apple.get('foo'), 'bar')
+
+    def test_associating_facts_get_default(self):
+        apple = Entity('apple')
+        DBSession.add(apple)
+        DBSession.commit()
+        apple['foo'] = u'bar'
+        eq_(apple.get('baz'), None)
+
+    def test_associating_facts_get_custom_default(self):
+        apple = Entity('apple')
+        DBSession.add(apple)
+        DBSession.commit()
+        apple['foo'] = u'bar'
+        eq_(apple.get('baz', 'zomg'), 'zomg')
