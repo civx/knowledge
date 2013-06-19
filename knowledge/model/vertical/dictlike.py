@@ -91,6 +91,9 @@ class VerticalPropertyDictMixin(object):
 
     __map = property(lambda self: getattr(self, self._property_mapping))
 
+    def __getattr__(self, key):
+        return self.__map[key].value
+
     def __getitem__(self, key):
         return self.__map[key].value
 
