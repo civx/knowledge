@@ -8,7 +8,9 @@ from sqlalchemy.ext.declarative import declarative_base
 # Global session manager: DBSession() returns the Thread-local
 # session object appropriate for the current web request.
 maker = sessionmaker(autoflush=True, autocommit=False)
-DBSession = scoped_session(maker)
+
+def make_session():
+    return scoped_session(maker)
 
 # Base class for all of our model classes: By default, the data model is
 # defined with SQLAlchemy's declarative extension, but if you need more
@@ -36,10 +38,10 @@ metadata = DeclarativeBase.metadata
 #
 ######
 
-def init_model(engine):
+def init_model(engine, session):
     """Call me before using any of the tables or classes in the model."""
     print "init_model(%s)" % engine
-    DBSession.configure(bind=engine)
+    session.configure(bind=engine)
     # If you are using reflection to introspect your database and create
     # table objects for you, your tables must be defined and mapped inside
     # the init_model function, so that the engine is available if you
@@ -61,8 +63,10 @@ def setup_knowledge(sqlalchemy_uri):
     """Call me to connect to the DB and set up SQLAlchemy accordingly"""
     from sqlalchemy import create_engine
     engine = create_engine(sqlalchemy_uri)
-    init_model(engine)
+    session = make_session()
+    init_model(engine, session)
     metadata.create_all(engine)
+    return session
 
 
 # Import your model modules here.

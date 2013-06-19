@@ -31,7 +31,7 @@ from sqlalchemy import *
 from sqlalchemy.orm import relation, comparable_property
 from vertical import PolymorphicVerticalProperty, VerticalPropertyDictMixin
 
-from knowledge.model import DBSession, DeclarativeBase
+from knowledge.model import DeclarativeBase
 
 
 class Fact(PolymorphicVerticalProperty, DeclarativeBase):
@@ -102,11 +102,11 @@ class Entity(VerticalPropertyDictMixin, DeclarativeBase):
         self.name = name
 
     @classmethod
-    def by_name(cls, name):
+    def by_name(cls, name, session):
         """A class method that permits to search entities
         based on their name attribute.
         """
-        return DBSession.query(cls).filter(cls.name==name).first()
+        return session.query(cls).filter(cls.name==name).first()
 
     # Adjacency-tree methods
     def append(self, node):
