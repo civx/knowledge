@@ -9,15 +9,14 @@ can be created and then have arbitrary facts applied to them.  Before Knowledge
 can be used, the DB has to be set up with SQLAlchemy as follows::
 
     from sqlalchemy import create_engine
-    from knowledge.model import init_model, metadata
-    engine = create_engine('sqlite:///knowledge.db')
-    init_model(engine)
-    metadata.create_all(engine)
+    from knowledge.model import setup_knowledge
+
+    DBSession = setup_knowledge('sqlite:///knowledge.db')
 
 Using knowledge is easy.  Entities are created with a key, then facts about
 the entity can be applied like values in a dictionary::
 
-    from knowledge.model import Entity, DBSession
+    from knowledge.model import Entity
 
     monster = Entity(u'Monster')
     fairy = Entity(u'Fairy')
